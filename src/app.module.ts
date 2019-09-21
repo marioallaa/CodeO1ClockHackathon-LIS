@@ -1,16 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ChatService } from './chat/chat.service';
-import { ChatController } from './chat/chat.controller';
-import { ChatModule } from './chat/chat.module';
-import { UserService } from './user/user.service';
 import { UserModule } from './user/user.module';
-import {TypeOrmModule} from "@nestjs/typeorm";
-import {getConnectionOptions} from "typeorm";
-import {join} from "path";
+import {TypeOrmModule} from '@nestjs/typeorm';
+import {getConnectionOptions} from 'typeorm';
 import { AuthModule } from './auth/auth.module';
-
+import { MediaModule } from './media/media.module';
 
 const getType = (envType: any) => {
   switch (envType) {
@@ -52,10 +47,10 @@ console.log('process.env.databaseSync: \t', process.env.databaseSync);
       logging: (process.env.databaseLog === 'true' || false),
       cache: (process.env.databaseCache === 'true' || false),
     }),
-    ChatModule,
     UserModule,
-    AuthModule],
+    AuthModule,
+    MediaModule],
   controllers: [AppController],
-  providers: [AppService, ],
+  providers: [AppService ],
 })
 export class AppModule {}
