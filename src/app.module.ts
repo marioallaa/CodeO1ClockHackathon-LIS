@@ -6,6 +6,7 @@ import {TypeOrmModule} from '@nestjs/typeorm';
 import {getConnectionOptions} from 'typeorm';
 import { AuthModule } from './auth/auth.module';
 import { MediaModule } from './media/media.module';
+import { ChatModule } from './pp.chat/chat.module';
 
 const getType = (envType: any) => {
   switch (envType) {
@@ -49,7 +50,8 @@ console.log('process.env.databaseSync: \t', process.env.databaseSync);
     }),
     UserModule,
     AuthModule,
-    MediaModule],
+    MediaModule,
+    ChatModule],
   controllers: [AppController],
   providers: [AppService ],
 })

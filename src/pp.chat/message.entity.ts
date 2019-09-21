@@ -14,9 +14,12 @@ export class MessageEntity {
   senderId: number;
 
   @Column()
+  sentTime: string;
+
+  @Column()
   groupId: number;
 
-  @OneToMany(() => MediaEntity, photos => photos.id)
-  photos: MediaEntity[];
+  @Column()
+  photoUrl: string;
 
 }

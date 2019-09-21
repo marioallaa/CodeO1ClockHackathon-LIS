@@ -1,19 +1,28 @@
-import {Controller, Get, Param, Render, UseGuards} from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Render, UseGuards } from '@nestjs/common';
 import {ChatService} from './chat.service';
 import { Request } from '@nestjs/common';
 import {AuthGuard} from '@nestjs/passport';
+import { GetMessageDto } from './dto/get.message.dto';
 
-@Controller('send')
+@Controller('msg')
 export class ChatController {
 
     constructor(private chat: ChatService) {  }
 
-    @UseGuards(AuthGuard('jwt'))
-    @Get('/:msg')
+    // @UseGuards(AuthGuard('jwt'))
+    @Get('/')
     async getMessage(@Request() req, @Param('msg') msg) {
             console.log(msg);
-            return  (msg);
+            return  this.chat.findAll();
     }
+
+  @Post('send')
+  createUser(@Body() data: GetMessageDto) {
+    return this.chat.saveMessage(data);
+
+  }
+
+
 
 }
 
