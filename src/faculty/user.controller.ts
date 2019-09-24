@@ -1,14 +1,14 @@
 import {Body, Controller, Delete, Get, Param, Post, Put} from '@nestjs/common';
-import {UserService} from './user.service';
+import {UniService} from './uni.service';
 import {Request} from '@nestjs/common';
-import {RegisterDto} from './user.dto/register.dto';
+import { CreateNewClass } from 'src/faculty/dto/create.class.dto';
 
 @Controller('user')
 export class UserController {
-    constructor(private readonly userService: UserService) {}
+    constructor(private readonly userService: UniService) {}
 
     @Post('new')
-    createUser(@Body() data: RegisterDto) {
+    createUser(@Body() data: CreateNewClass) {
          return this.userService.registerNew(data);
 
     }
@@ -23,7 +23,7 @@ export class UserController {
     }
 
     @Put('/:username')
-    updateUser(@Body() data: RegisterDto, @Param('username') username) {
+    updateUser(@Body() data: CreateNewClass, @Param('username') username) {
         return this.userService.updateOne(username, data);
     }
 

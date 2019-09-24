@@ -1,17 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import {InjectRepository} from '@nestjs/typeorm';
-import {UserEntity} from './user.entity';
 import {Repository} from 'typeorm';
-import {RegisterDto} from './user.dto/register.dto';
 import {Hash} from 'crypto';
+import { ClassEntity } from './class.entity';
+import { CreateNewClass } from './dto/create.class.dto';
 
 @Injectable()
-export class UserService {
+export class UniService {
 
     private readonly u: any;
     constructor(
-        @InjectRepository(UserEntity)
-        private readonly user: Repository<UserEntity>,
+        @InjectRepository(ClassEntity)
+        private readonly user: Repository<ClassEntity>,
     ) {
         this.u = [
             {
@@ -33,24 +33,24 @@ export class UserService {
 
     }
 
-    async registerNew(data: RegisterDto) {
-        const d: UserEntity = this.user.create(data);
+    async registerNew(data: CreateNewClass) {
+        const d: ClassEntity = this.user.create(data);
         return await this.user.save(d);
     }
 
-    findAll(): Promise<UserEntity[]> {
+    findAll(): Promise<ClassEntity[]> {
         return this.user.find({});
     }
 
-    deleteOne(username: string) {
-        return this.user.delete({username});    }
+    deleteOne(uniId: string) {
+        return this.user.delete({});    }
 
-    updateOne(username: string, data: RegisterDto) {
-        const d: UserEntity = this.user.create(data);
-        this.user.update({username}, d);
+    updateOne(username: string, data: CreateNewClass) {
+        const d: ClassEntity = this.user.create(data);
+        this.user.update({}, d);
     }
 
     async findOne(username: string): Promise<any | undefined> {
-        return this.user.findOne({username});
+        return this.user.findOne({});
     }
 }

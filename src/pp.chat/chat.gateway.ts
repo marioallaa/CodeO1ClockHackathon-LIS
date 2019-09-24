@@ -8,6 +8,7 @@ import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Client, Server } from 'socket.io';
 import {ChatService} from './chat.service';
+import { SendMessageDto } from './dto/send.message.dto';
 
 @WebSocketGateway({})
 export class ChatGateway {
@@ -28,5 +29,9 @@ export class ChatGateway {
         return data;
     }
 
+    @SubscribeMessage('message')
+    async msg(client: Client, data: SendMessageDto) {
+    return data;
+    }
 
 }
